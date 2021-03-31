@@ -8,6 +8,7 @@ authors = ["Matteo Silvestro <matteosilvestro@live.it>"]
 python = "^3.9"
 requests = "^2.25.1"
 fake-useragent = "^0.1.11"
+beautifulsoup4 = "^4.9.3"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
