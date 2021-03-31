@@ -1,2 +1,2 @@
 # flake8: noqa
-from .main import HowLongToBeatOracle
+from .main import HowLongToBeatOracle, SortBy
