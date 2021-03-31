@@ -36,4 +36,11 @@ class HowLongToBeatParser:
                     current_label = block.text.strip()
             games.append(game)
 
-        return games
+        bottom_spans = soup.find("h2").find_all("span")
+        page = 1
+        for span in bottom_spans:
+            if "back_blue" in span.get("class") and span.text != "":
+                page = int(span.text)
+        total_pages = int(bottom_spans[-1].text)
+
+        return {"data": games, "pages": {"page": page, "total_pages": total_pages}}

@@ -9,7 +9,7 @@ class HowLongToBeatOracle:
     @staticmethod
     def get(page: Optional[int] = None, sort_by: SortBy = SortBy.most_popular):
         html = HowLongToBeatWebsite.search_results(page=page, sort_by=sort_by)
-        return [
-            HowLongToBeatGame(game)
-            for game in HowLongToBeatParser.parse_game_list(html)
+        result = HowLongToBeatParser.parse_game_list(html)
+        return [HowLongToBeatGame(game) for game in result["data"]], result["pages"][
+            "total_pages"
         ]
