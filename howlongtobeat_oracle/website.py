@@ -8,7 +8,7 @@ from fake_useragent import UserAgent
 class SortBy(Enum):
     name = "name"
     main_story = "main"
-    main_extras = "mainp"
+    main_extra = "mainp"
     completionist = "comp"
     average_time = "averagea"
     top_rated = "rating"
