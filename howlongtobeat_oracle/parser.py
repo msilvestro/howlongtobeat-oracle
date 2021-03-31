@@ -13,6 +13,7 @@ class HowLongToBeatParser:
             game_id = int(detail.h3.a.get("href").split("id=")[-1])
             game = {"name": game_name, "id": game_id}
 
+            game["times"] = {}
             detail_block = (
                 detail.find("div", class_="search_list_details_block")
                 .find("div")
@@ -21,12 +22,15 @@ class HowLongToBeatParser:
             current_label = None
             for block in detail_block:
                 if current_label:
-                    value = block.text.strip()
+                    content = block.text.strip()
                     accuracy = 0
                     for block_class in block.get("class"):
                         if block_class.startswith("time_"):
                             accuracy = int(block_class.split("_")[-1])
-                    game[current_label] = {"value": value, "accuracy": accuracy}
+                    game["times"][current_label] = {
+                        "content": content,
+                        "accuracy": accuracy,
+                    }
                     current_label = None
                 else:
                     current_label = block.text.strip()
