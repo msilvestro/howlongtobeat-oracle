@@ -11,6 +11,13 @@ fake-useragent = "^0.1.11"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
+isort = "^5.8.0"
+pre-commit = "^2.11.1"
+
+[tool.isort]
+profile = "black"
+known_fastapi = "fastapi"
+sections = ["FUTURE", "STDLIB", "THIRDPARTY", "FASTAPI", "FIRSTPARTY", "LOCALFOLDER"]
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
