@@ -2,10 +2,19 @@ class HowLongToBeatTime:
     def __init__(self, name: str, content: str, accuracy: int):
         self.name = name
         self.original_content = content
-        value, unit = content.split(" ") if content != "--" else (None, None)
+        value, unit = self.content_to_value_unit(content)
         self.value = value
         self.unit = unit
         self.accuracy = accuracy
+
+    @staticmethod
+    def content_to_value_unit(content: str):
+        value, unit = content.split(" ") if content != "--" else (None, None)
+        if value.endswith("½"):
+            num_value = int(value[:-1]) + 0.5
+        else:
+            num_value = int(value)
+        return num_value, unit.lower()
 
     def __repr__(self):
         return (
