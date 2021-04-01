@@ -1,11 +1,11 @@
 [tool.poetry]
 name = "hltb-oracle"
-version = "0.1.0"
+version = "0.1.1"
 description = ""
 authors = ["Matteo Silvestro <matteosilvestro@live.it>"]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.5"
 requests = "^2.25.1"
 fake-useragent = "^0.1.11"
 beautifulsoup4 = "^4.9.3"
