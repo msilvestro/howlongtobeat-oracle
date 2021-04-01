@@ -22,4 +22,4 @@ class HowLongToBeatOracle:
         result = HowLongToBeatParser.parse_game_list(html)
         return [HowLongToBeatGame(game) for game in result["data"]], result["pages"][
             "total_pages"
-        ]
+        ] if result["pages"] else None

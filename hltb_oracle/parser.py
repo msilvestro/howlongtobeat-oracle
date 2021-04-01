@@ -36,6 +36,9 @@ class HowLongToBeatParser:
                     current_label = block.text.strip()
             games.append(game)
 
+        if len(games) == 0:
+            return {"data": [], "pages": None}
+
         bottom_spans = soup.find("h2").find_all("span")
         page = 1
         for span in bottom_spans:

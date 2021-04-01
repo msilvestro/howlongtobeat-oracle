@@ -9,7 +9,9 @@ class HowLongToBeatTime:
 
     @staticmethod
     def content_to_value_unit(content: str):
-        value, unit = content.split(" ") if content != "--" else (None, None)
+        if content == "--":
+            return None, None
+        value, unit = content.split(" ")
         if value.endswith("½"):
             num_value = int(value[:-1]) + 0.5
         else:
