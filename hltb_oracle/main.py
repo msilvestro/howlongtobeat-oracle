@@ -8,11 +8,12 @@ from hltb_oracle.website import HowLongToBeatWebsite, SortBy
 class HowLongToBeatOracle:
     @staticmethod
     def get(
+        search_query: Optional[str] = None,
         page: Optional[int] = None,
         sort_by: SortBy = SortBy.most_popular,
         only_recently_updated=False,
     ):
-        query_string = "recently updated" if only_recently_updated else None
+        query_string = "recently updated" if only_recently_updated else search_query
         html = HowLongToBeatWebsite.search_results(
             query_string=query_string,
             page=page,
