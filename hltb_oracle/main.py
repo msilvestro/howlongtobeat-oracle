@@ -1,8 +1,8 @@
 from typing import Optional
 
-from howlongtobeat_oracle.models import HowLongToBeatGame
-from howlongtobeat_oracle.parser import HowLongToBeatParser
-from howlongtobeat_oracle.website import HowLongToBeatWebsite, SortBy
+from hltb_oracle.models import HowLongToBeatGame
+from hltb_oracle.parser import HowLongToBeatParser
+from hltb_oracle.website import HowLongToBeatWebsite, SortBy
 
 
 class HowLongToBeatOracle:
