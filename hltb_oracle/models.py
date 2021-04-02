@@ -85,3 +85,4 @@ class HowLongToBeatPage:
         self.data = [HowLongToBeatGame(game) for game in hltb_result["data"]]
         self.page = hltb_result["pages"].get("page")
         self.total_pages = hltb_result["pages"].get("total_pages")
+        self.games_found = hltb_result["pages"].get("games_found")
