@@ -19,10 +19,8 @@ This code will get page 3 of the games ordered by release date:
 ```python
 from hltb_oracle import HowLongToBeatOracle, SortBy
 
-games, total_pages = HowLongToBeatOracle.get(page=3, sort_by=SortBy.release_date)
+games = HowLongToBeatOracle.get(page=3, sort_by=SortBy.release_date).data
 ```
-
-`games` will contain the game data extracted from How Long To Beat, while `total_pages` will tell how many pages there are.
 
 All How Long To Beat orderings are supported:
 
@@ -46,7 +44,7 @@ This code will get the first page of the recently updated games ordered by most 
 ```python
 from hltb_oracle import HowLongToBeatOracle, SortBy
 
-games, total_pages = HowLongToBeatOracle.get(page=3, sort_by=SortBy.release_date, only_recently_updated=True)
+games = HowLongToBeatOracle.get(page=3, sort_by=SortBy.release_date, only_recently_updated=True).data
 ```
 
 # Search for a game
@@ -56,5 +54,5 @@ You can still search by game name:
 ```python
 from hltb_oracle import HowLongToBeatOracle, SortBy
 
-games, total_pages = HowLongToBeatOracle.get("Persona", sort_by=SortBy.top_rated)
+games = HowLongToBeatOracle.get("Persona", sort_by=SortBy.top_rated).data
 ```

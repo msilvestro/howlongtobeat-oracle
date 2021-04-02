@@ -1,6 +1,6 @@
 from typing import Optional
 
-from hltb_oracle.models import HowLongToBeatGame
+from hltb_oracle.models import HowLongToBeatPage
 from hltb_oracle.parser import HowLongToBeatParser
 from hltb_oracle.website import HowLongToBeatWebsite, SortBy
 
@@ -20,6 +20,4 @@ class HowLongToBeatOracle:
             sort_by=sort_by,
         )
         result = HowLongToBeatParser.parse_game_list(html)
-        return [HowLongToBeatGame(game) for game in result["data"]], result["pages"][
-            "total_pages"
-        ] if result["pages"] else None
+        return HowLongToBeatPage(result)
