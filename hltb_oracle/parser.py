@@ -14,17 +14,18 @@ class HowLongToBeatParser:
             game = {"name": game_name, "id": game_id}
 
             game["times"] = {}
-            detail_block = (
-                detail.find("div", class_="search_list_details_block")
-                .find("div")
-                .find_all("div")
+            details_block = detail.find("div", class_="search_list_details_block")
+            tidbits = (
+                details_block.find("div").find_all("div")
+                if details_block.content
+                else []
             )
             current_label = None
-            for block in detail_block:
+            for tidbit in tidbits:
                 if current_label:
-                    content = block.text.strip()
+                    content = tidbit.text.strip()
                     accuracy = 0
-                    for block_class in block.get("class"):
+                    for block_class in tidbit.get("class"):
                         if block_class.startswith("time_"):
                             accuracy = int(block_class.split("_")[-1])
                     game["times"][current_label] = {
@@ -33,11 +34,12 @@ class HowLongToBeatParser:
                     }
                     current_label = None
                 else:
-                    current_label = block.text.strip()
+                    current_label = tidbit.text.strip()
             games.append(game)
 
-        if len(games) == 0:
-            return {"data": [], "pages": None}
+        bottom_h2 = soup.find("h2")
+        if not bottom_h2:
+            return {"data": games, "pages": {}}
 
         bottom_spans = soup.find("h2").find_all("span")
         page = 1
