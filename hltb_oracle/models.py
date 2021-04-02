@@ -69,7 +69,5 @@ class HowLongToBeatGame:
 class HowLongToBeatPage:
     def __init__(self, hltb_result: dict):
         self.data = [HowLongToBeatGame(game) for game in hltb_result["data"]]
-        self.page = hltb_result["pages"]["page"] if hltb_result["pages"] else None
-        self.total_pages = (
-            hltb_result["pages"]["total_pages"] if hltb_result["pages"] else None
-        )
+        self.page = hltb_result["pages"].get("page")
+        self.total_pages = hltb_result["pages"].get("total_pages")
