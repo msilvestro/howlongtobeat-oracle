@@ -43,8 +43,10 @@ class HowLongToBeatGame:
                 accuracy=time_details.get("accuracy"),
             )
 
-    def get_time(self, type_="Main Story"):
-        return self.times.get(type_)
+    def get_time(self, type_):
+        if type_ not in self.times:
+            raise ValueError(f"Time of type {type_} not available")
+        return self.times[type_]
 
     @property
     def main_story(self):
@@ -57,6 +59,18 @@ class HowLongToBeatGame:
     @property
     def completionist(self):
         return self.get_time("Completionist")
+
+    @property
+    def solo(self):
+        return self.get_time("Solo")
+
+    @property
+    def coop(self):
+        return self.get_time("Co-Op")
+
+    @property
+    def vs(self):
+        return self.get_time("Vs.")
 
     def __repr__(self):
         return f"{self.__class__.__name__}(name={repr(self.name)}, id={repr(self.id)})"

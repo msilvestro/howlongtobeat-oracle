@@ -7,19 +7,15 @@ class HowLongToBeatParser:
         games = []
 
         soup = BeautifulSoup(html, "html.parser")
-        details = soup.find_all("div", class_="search_list_details")
-        for detail in details:
-            game_name = detail.h3.a.text.strip()
-            game_id = int(detail.h3.a.get("href").split("id=")[-1])
+        games_list = soup.select("div.search_list_details")
+        for game_item in games_list:
+            game_name = game_item.h3.a.text.strip()
+            game_id = int(game_item.h3.a.get("href").split("id=")[-1])
             game = {"name": game_name, "id": game_id}
 
             game["times"] = {}
-            details_block = detail.find("div", class_="search_list_details_block")
-            tidbits = (
-                details_block.find("div").find_all("div")
-                if details_block.content
-                else []
-            )
+            details_block = game_item.select("div.search_list_details_block")[0]
+            tidbits = details_block.select("div[class^=search_list_tidbit]")
             current_label = None
             for tidbit in tidbits:
                 if current_label:
