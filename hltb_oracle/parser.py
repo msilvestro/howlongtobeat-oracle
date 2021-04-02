@@ -1,12 +1,23 @@
+import re
+
 from bs4 import BeautifulSoup
 
 
 class HowLongToBeatParser:
-    @staticmethod
-    def parse_game_list(html: str):
-        games = []
+    found_games_pattern = re.compile(r"We Found (\d+) Games")
 
+    @classmethod
+    def parse_game_list(cls, html: str):
         soup = BeautifulSoup(html, "html.parser")
+
+        pages = {}
+        games_found_h3 = soup.select_one('h3:-soup-contains("We Found")')
+        if games_found_h3:
+            games_found_matches = cls.found_games_pattern.findall(games_found_h3.text)
+            if len(games_found_matches) == 1:
+                pages["games_found"] = int(games_found_matches[0])
+
+        games = []
         games_list = soup.select("div.search_list_details")
         for game_item in games_list:
             game_name = game_item.h3.a.text.strip()
@@ -14,7 +25,7 @@ class HowLongToBeatParser:
             game = {"name": game_name, "id": game_id}
 
             game["times"] = {}
-            details_block = game_item.select("div.search_list_details_block")[0]
+            details_block = game_item.select_one("div.search_list_details_block")
             tidbits = details_block.select("div[class^=search_list_tidbit]")
             current_label = None
             for tidbit in tidbits:
@@ -34,14 +45,16 @@ class HowLongToBeatParser:
             games.append(game)
 
         bottom_h2 = soup.find("h2")
-        if not bottom_h2:
-            return {"data": games, "pages": {}}
+        if bottom_h2:
+            bottom_spans = soup.find("h2").find_all("span")
+            page = 1
+            for span in bottom_spans:
+                if "back_blue" in span.get("class") and span.text != "":
+                    page = int(span.text)
+            pages["page"] = page
+            pages["total_pages"] = int(bottom_spans[-1].text)
 
-        bottom_spans = soup.find("h2").find_all("span")
-        page = 1
-        for span in bottom_spans:
-            if "back_blue" in span.get("class") and span.text != "":
-                page = int(span.text)
-        total_pages = int(bottom_spans[-1].text)
-
-        return {"data": games, "pages": {"page": page, "total_pages": total_pages}}
+        return {
+            "data": games,
+            "pages": pages,
+        }
