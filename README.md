@@ -37,7 +37,7 @@ All How Long To Beat orderings are supported:
 - `most_speedruns`
 - `release_date`
 
-# Get recently updated games
+### Get recently updated games
 
 This code will get the first page of the recently updated games ordered by most submissions:
 
@@ -47,7 +47,7 @@ from hltb_oracle import HowLongToBeatOracle, SortBy
 games = HowLongToBeatOracle.get(page=3, sort_by=SortBy.release_date, only_recently_updated=True).data
 ```
 
-# Search for a game
+### Search for a game
 
 You can still search by game name:
 
