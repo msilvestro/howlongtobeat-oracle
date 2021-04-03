@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "hltb-oracle"
-version = "0.1.2"
+version = "0.1.3"
 description = ""
 authors = ["Matteo Silvestro <matteosilvestro@live.it>"]
 
