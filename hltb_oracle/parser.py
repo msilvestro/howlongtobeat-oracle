@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 
 class HowLongToBeatParser:
     found_games_pattern = re.compile(r"We Found (\d+) Games")
-    recently_updated_games_pattern = re.compile(r"(\d+) Recently Updated Games")
+    recent_games_pattern = re.compile(r"(\d+) Recently (?:Updated|Added) Games")
 
     @classmethod
     def parse_game_list(cls, html: str):
@@ -14,7 +14,8 @@ class HowLongToBeatParser:
         pages = {}
         for match_string, pattern in {
             ("We Found", cls.found_games_pattern),
-            ("Recently Updated Games", cls.recently_updated_games_pattern),
+            ("Recently Updated Games", cls.recent_games_pattern),
+            ("Recently Added Games", cls.recent_games_pattern),
         }:
             games_found_h3 = soup.select_one(f'h3:-soup-contains("{match_string}")')
             if games_found_h3:
