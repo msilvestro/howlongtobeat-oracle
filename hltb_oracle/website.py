@@ -20,6 +20,11 @@ class SortBy(Enum):
     release_date = "release"
 
 
+class SpecialQuery(Enum):
+    recently_updated = "recently updated"
+    recently_added = "recently added"
+
+
 class HowLongToBeatWebsite:
     base_url = "https://howlongtobeat.com/"
 
