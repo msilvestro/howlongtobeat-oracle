@@ -1,6 +1,6 @@
-# How Long To Beat Oracle
+# HowLongToBeatOracle
 
-Extract information from How Long To Beat.
+Extract information from HowLongToBeat.
 
 Unlike other libraries, it allows to browse all of the results (even when not searching for a specific game).
 
